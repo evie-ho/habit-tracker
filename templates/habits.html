@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Habits - Habit Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <a href="{{ url_for('view_habits') }}">My Habits</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+        
+        <h1>My Habits</h1>
+        <p class="subtitle">Welcome, {{ user.username }}!</p>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Add Habit Button -->
+        <div class="actions">
+            <a href="{{ url_for('add_habit') }}" class="btn btn-primary">+ Add New Habit</a>
+        </div>
+        
+        <!-- Habits List -->
+        {% if habits %}
+        <div class="habits-grid">
+            {% for item in habits %}
+            <div class="habit-card">
+                <div class="habit-header">
+                    <h3>{{ item.habit.name }}</h3>
+                    <span class="streak-badge">🔥 {{ item.streak }} day streak</span>
+                </div>
+                
+                {% if item.habit.description %}
+                <p class="habit-description">{{ item.habit.description }}</p>
+                {% endif %}
+                
+                <div class="habit-meta">
+                    <span>Frequency: {{ item.habit.frequency }}</span>
+                    <span>Created: {{ item.habit.created_date.strftime('%b %d, %Y') }}</span>
+                </div>
+                
+                <div class="habit-actions">
+                    <form action="{{ url_for('complete_habit', habit_id=item.habit.id) }}" method="POST" class="inline-form">
+                        <button type="submit" class="btn btn-success">✓ Complete Today</button>
+                    </form>
+                    
+                    <div class="action-buttons">
+                        <a href="{{ url_for('view_history', habit_id=item.habit.id) }}" class="btn btn-secondary">View History</a>
+                        
+                        <form action="{{ url_for('delete_habit', habit_id=item.habit.id) }}" method="POST" class="inline-form" 
+                              onsubmit="return confirm('Are you sure you want to delete this habit?');">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <p>You haven't created any habits yet.</p>
+            <a href="{{ url_for('add_habit') }}" class="btn btn-primary">Create Your First Habit</a>
+        </div>
+        {% endif %}
+    </div>
+    
+    <script>
+        // Simple confirmation for delete
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteForms = document.querySelectorAll('form[action*="delete_habit"]');
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    if (!confirm('Are you sure you want to delete this habit?')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

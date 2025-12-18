@@ -11,4 +11,15 @@ __pycache__/
 Thumbs.db
 
 
-
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.env
+.venv
+instance/
+*.db
+*.sqlite3

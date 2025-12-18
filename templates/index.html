@@ -1,20 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Habit Tracker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker - Build Better Habits</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Habit Tracker</h1>
-
-    {% if user %}
-        <p>Logged in as {{ user.username }}</p>
-        <a href="{{ url_for('logout') }}">Logout</a>
-    {% else %}
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('register') }}">Register</a>
-    {% endif %}
-
-    <br><br>
-    <a href="{{ url_for('show_users') }}">User Switcher</a>
+    <div class="auth-container">
+        <h1>🚀 Habit Tracker</h1>
+        <p class="subtitle">Build better habits, one day at a time</p>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <div class="auth-buttons">
+            <a href="{{ url_for('login') }}" class="btn btn-primary" style="width: 100%; margin-bottom: 15px;">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-secondary" style="width: 100%;">Register</a>
+        </div>
+        
+        <div class="features">
+            <h3>Features:</h3>
+            <ul style="margin-top: 20px; list-style: none; padding-left: 0;">
+                <li>✅ Track daily habits</li>
+                <li>✅ View your streaks</li>
+                <li>✅ Monitor progress</li>
+                <li>✅ Set personal goals</li>
+            </ul>
+        </div>
+        
+        <div class="auth-links">
+            <p>Start building better habits today!</p>
+        </div>
+    </div>
 </body>
 </html>

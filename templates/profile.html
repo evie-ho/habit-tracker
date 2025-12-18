@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Habit Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <a href="{{ url_for('view_habits') }}">My Habits</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+        
+        <h1>Your Profile</h1>
+        
+        <div class="profile-info">
+            <div class="profile-card">
+                <h2>{{ user.username }}</h2>
+                <p>Member since: {{ user.created_at.strftime('%B %d, %Y') }}</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Habits</h3>
+                    <p class="stat-number">{{ total_habits }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Completed Today</h3>
+                    <p class="stat-number">{{ habits_completed_today }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <a href="{{ url_for('view_habits') }}" class="btn btn-primary">View Habits</a>
+            <a href="{{ url_for('add_habit') }}" class="btn btn-secondary">Add New Habit</a>
+        </div>
+    </div>
+</body>
+</html>

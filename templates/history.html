@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit History - Habit Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <a href="{{ url_for('view_habits') }}">My Habits</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+        
+        <h1>History: {{ habit.name }}</h1>
+        <p class="subtitle">Current Streak: {{ streak }} days</p>
+        
+        <div class="back-link">
+            <a href="{{ url_for('view_habits') }}">← Back to Habits</a>
+        </div>
+        
+        {% if logs %}
+        <div class="history-list">
+            <h2>Completion History</h2>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr>
+                        <td>{{ log.completed_date.strftime('%B %d, %Y') }}</td>
+                        <td>{{ log.completed_date.strftime('%A') }}</td>
+                        <td>{{ log.notes or '-' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <p>No completion history yet. Start building your streak!</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
