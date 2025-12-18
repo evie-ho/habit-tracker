@@ -2,9 +2,6 @@
 
 A full-featured Flask web application for tracking daily habits and building streaks.
 
-## 🚀 Live Demo
-[Add your deployment link here]
-
 ## ✨ Features
 - User authentication (Register/Login/Logout)
 - Create, read, update, and delete habits
