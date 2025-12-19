@@ -5,6 +5,7 @@ Main application file with all routes and logic
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from datetime import date
+import os  # CRITICAL FOR DEPLOYMENT
 from models import db, User, Habit, HabitLog
 
 # Initialize Flask app first
@@ -258,19 +259,6 @@ def profile():
                          user=user, 
                          total_habits=total_habits,
                          habits_completed_today=habits_completed_today)
-    total_habits = Habit.query.filter_by(user_id=user.id).count()
-    
-    # Get completion stats
-    today = date.today()
-    habits_completed_today = 0
-    for habit in user.habits:
-        if HabitLog.query.filter_by(habit_id=habit.id, completed_date=today).first():
-            habits_completed_today += 1
-    
-    return render_template('profile.html', 
-                         user=user, 
-                         total_habits=total_habits,
-                         habits_completed_today=habits_completed_today)
 
 # ======================
 # INITIALIZATION
@@ -282,7 +270,9 @@ def init_database():
         db.create_all()
         print("✓ Database tables created/verified")
 
+# Initialize database when app starts
+init_database()
+
 if __name__ == '__main__':
-    # Initialize database before first request
-    init_database()
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
