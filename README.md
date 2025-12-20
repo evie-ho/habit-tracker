@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-markdown
-=======
->>>>>>> 9a901474f2a59a9ef52bd5d8f905930e983c2e24
 # 🚀 Habit Tracker Web Application
 
 A full-featured Flask web application for tracking daily habits, building streaks, and monitoring personal progress. Perfect for building consistent routines and achieving personal goals.
 
-<<<<<<< HEAD
-=======
+## 🚀 Live Demo
+https://habit-tracker-evieho.onrender.com
 
->>>>>>> 9a901474f2a59a9ef52bd5d8f905930e983c2e24
 ## 🎯 Features
 - **User Authentication** - Secure registration and login system
 - **Habit Management** - Full CRUD operations (Create, Read, Update, Delete)
@@ -136,5 +131,3 @@ Run basic tests:
 
 bash
 python -m pytest tests/ -v
-=======
->>>>>>> 9a901474f2a59a9ef52bd5d8f905930e983c2e24
